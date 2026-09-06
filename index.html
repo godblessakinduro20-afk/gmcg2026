@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GMCG 2026 - Gospel Music Cover Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript"> (function(){ emailjs.init("YOUR_PUBLIC_KEY"); })(); </script>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, sans-serif;}
+body{background:#1a0000;color:#fff;}
+.topbar{background:#000;padding:8px 20px;font-size:12px;text-align:center;color:#FFD700;}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px;border-radius:50%;font-size:24px;text-decoration:none;z-index:9999;}
+.header{background:linear-gradient(180deg, #4a0000 0%, #8B0000 100%);padding:20px;text-align:center;}
+.logo-main{font-size:40px;font-weight:900;letter-spacing:3px;color:#FFD700;}
+.nav{display:flex;justify-content:center;gap:10px;background:#2a0000;padding:12px;flex-wrap:wrap;}
+.nav button{background:transparent;color:#FFD700;border:1px solid #FFD700;padding:8px 14px;border-radius:20px;cursor:pointer;font-size:13px;}
+.container{max-width:1100px;margin:30px auto;padding:30px;background:#fff;color:#333;border-radius:15px;}
+h2{text-align:center;color:#8B0000;margin-bottom:25px;border-bottom:3px solid #FFD700;padding-bottom:10px;}
+.btn{background:linear-gradient(135deg,#8B0000,#A52A2A);color:white;padding:16px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;border:2px solid #FFD700;width:100%;margin:8px 0;}
+.btn.gold{background:linear-gradient(135deg,#FFD700,#FFA500);color:#8B0000;}
+.btn:disabled{background:#ccc;border-color:#ccc;cursor:not-allowed;}
+.btn.small{padding:8px 12px;width:auto;font-size:14px;}
+.btn.logout{background:#d32f2f;}
+input,select,textarea{width:100%;padding:14px;margin:10px 0;border-radius:8px;border:2px solid #8B0000;font-size:16px;}
+.page{display:none;}
+.page.active{display:block;}
+.dashboard-box{background:#fff8e1;border:3px solid #FFD700;padding:20px;border-radius:12px;margin:15px 0;}
+.live-counter{background:linear-gradient(135deg,#8B0000,#A52A2A);color:#FFD700;padding:25px;border-radius:15px;text-align:center;margin:20px 0;}
+.live-counter h3{font-size:40px;}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+.stat-box{background:#8B0000;color:#FFD700;padding:20px;border-radius:10px;text-align:center;}
+.account-no{font-size:20px;font-weight:900;background:#1a0000;color:#FFD700;padding:15px;border-radius:10px;text-align:center;border:2px dashed #FFD700;}
+.table{width:100%;border-collapse:collapse;margin:15px 0;font-size:14px;}
+.table th{background:#8B0000;color:#FFD700;padding:10px;}
+.table td{padding:10px;border:1px solid #ddd;text-align:center;}
+.profile-pic{width:120px;height:120px;border-radius:50%;background:#ccc;border:4px solid #FFD700;display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 15px;overflow:hidden;}
+.profile-pic img{width:100%;height:100%;object-fit:cover;}
+.trend{font-size:30px;transition:0.5s;}
+.trend.up{color:#2e7d32;}
+.trend.down{color:#d32f2f;}
+.status-badge{padding:5px 10px;border-radius:20px;font-size:12px;font-weight:bold;}
+.status-pending{background:#FFA500;color:#fff;}
+.status-approved{background:#2e7d32;color:#fff;}
+.copy-btn{background:#2e7d32;color:white;padding:5px 10px;border:none;border-radius:5px;cursor:pointer;font-size:12px;}
+.popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;}
+.popup-content{background:white;padding:30px;border-radius:15px;width:90%;max-width:500px;color:#333;border:4px solid #FFD700;}
+.footer{background:#000;color:#FFD700;text-align:center;padding:30px;margin-top:40px;}
+.tab-buttons{display:flex;gap:10px;margin-bottom:20px;}
+.tab-buttons button{flex:1;}
+.active-tab{background:#FFD700;color:#8B0000;}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/2349056875464" target="_blank" class="whatsapp-float">💬</a>
+
+<div id="policyPopup" class="popup" style="display:flex;">
+  <div class="popup-content">
+    <h2 style="color:#8B0000;">Privacy Policy & Terms</h2>
+    <p>By using GMCG 2026 platform, you agree to our terms.</p>
+    <div style="display:flex;align-items:center;gap:10px;margin:15px 0;">
+      <input type="checkbox" id="acceptPolicy">
+      <label>I accept the Privacy Policy and Terms</label>
+    </div>
+    <button class="btn gold" onclick="acceptPolicy()">Continue to Website</button>
+  </div>
+</div>
+
+<div class="topbar">📞 ENQUIRIES: 09056875464, 08169551146 | 📍 Port Harcourt, Nigeria</div>
+
+<div class="header">
+  <div class="logo-main">GMC<span style="color:#fff;">G</span> 2026</div>
+</div>
+
+<div class="nav">
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('contestant-auth')">Contestant</button>
+  <button onclick="showPage('voter')">Vote</button>
+  <button onclick="showPage('admin')">Admin</button>
+</div>
+
+<div class="container">
+<div id="home" class="page active">
+  <h2>15TH EDITION - NOVEMBER/DECEMBER CONTEST</h2>
+  <div class="live-counter">
+    <h3 id="live-votes">0</h3>
+    <p>TOTAL VOTES CAST LIVE</p>
+  </div>
+  <button class="btn gold" onclick="showPage('contestant-auth')">👑 Contestant Login / Sign Up</button>
+  <button class="btn gold" onclick="showPage('voter')">🗳️ Vote Now</button>
+  <button class="btn" onclick="showPage('admin')">⚙️ Admin Panel</button>
+</div>
+
+<div id="contestant-auth" class="page">
+  <h2>Contestant Portal</h2>
+  <div class="tab-buttons">
+    <button id="tab-signup" class="btn active-tab" onclick="switchTab('signup')">Sign Up</button>
+    <button id="tab-login" class="btn" onclick="switchTab('login')">Login</button>
+  </div>
+  <div id="signup-form">
+    <input id="cname" placeholder="Full Name">
+    <input id="cphone" placeholder="Phone Number">
+    <input id="cemail" type="email" placeholder="Email Address">
+    <input id="cpass" type="password" placeholder="Create Password">
+    <select id="ccategory"><option>Select Category</option><option>Music</option><option>Instrumentation</option><option>Spoken Words</option><option>Dance & Others</option></select>
+    <button class="btn gold" onclick="contestantSignup()">Create Account</button>
+  </div>
+  <div id="login-form" style="display:none;">
+    <input id="clogin-email" type="email" placeholder="Email Address">
+    <input id="clogin-pass" type="password" placeholder="Password">
+    <button class="btn gold" onclick="contestantLogin()">Login to Dashboard</button>
+  </div>
+  <button class="btn" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<div id="contestant-dash" class="page">
+  <h2>Contestant Dashboard</h2>
+  <div class="profile-pic" id="contestant-photo">?</div>
+  <div class="dashboard-box">
+    <h3 style="color:#8B0000;">Welcome, <span id="dash-name"></span>!</h3>
+    <p><b>Email:</b> <span id="dash-email"></span></p>
+    <p><b>Category:</b> <span id="dash-cat"></span></p>
+    <p><b>Bio:</b> <span id="dash-bio">Bio data will be updated by admin soon.</span></p>
+  </div>
+  <div class="dashboard-box">
+    <h3>Your Reference Code: <span id="ref-code" style="color:#2e7d32;"></span>
+      <button class="copy-btn" onclick="copyRef()">Copy</button>
+    </h3>
+  </div>
+  <div class="dashboard-box">
+    <h3>Voting Trend <span id="trend-arrow" class="trend up">-</span></h3>
+    <p><small>Updates when votes come in</small></p>
+  </div>
+  <div class="dashboard-box" id="my-votes-status">
+    <h3>My Vote Status</h3>
+    <p>No votes yet</p>
+  </div>
+  <button class="btn" onclick="showPage('vote')">🗳️ Vote for Yourself</button>
+  <button class="btn logout" onclick="logoutContestant()">Logout</button>
+</div>
+
+<div id="voter" class="page">
+  <h2>Voter Registration</h2>
+  <input id="vname" placeholder="Full Name">
+  <input id="vphone" placeholder="Phone Number">
+  <input id="vemail" placeholder="Email Address">
+  <button class="btn gold" onclick="voterSubmit()">Register & Continue to Vote</button>
+  <button class="btn" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<div id="vote" class="page">
+  <h2>Cast Your Vote</h2>
+  <div class="dashboard-box">
+    <h3>Welcome, <span id="voter-name"></span></h3>
+  </div>
+  <select id="vote-contestant" onchange="showContestantInfo()"><option>Select Contestant</option></select>
+  <div id="selected-contestant" class="dashboard-box" style="display:none;">
+    <div class="profile-pic" id="vote-photo">?</div>
+    <p><b>Name:</b> <span id="vote-cname"></span></p>
+    <p><b>Category:</b> <span id="vote-ccat"></span></p>
+    <p><b>Bio:</b> <span id="vote-cbio">Loading...</span></p>
+    <p><b>Reference Code:</b> <span id="vote-cref" style="color:#2e7d32;font-weight:bold;"></span>
+      <button class="copy-btn" onclick="copyVoteRef()">Copy</button>
+    </p>
+  </div>
+  <input id="vote-amount" type="number" placeholder="Vote Amount - ₦100 per vote">
+  <input id="vote-payref" placeholder="Payment Reference / Teller No">
+  <label><b>Upload Payment Proof - REQUIRED:</b></label>
+  <input id="vote-proof" type="file" accept="image/*,.pdf" onchange="checkProof()">
+  <button id="submit-vote-btn" class="btn" onclick="submitVote()" disabled>Submit For Approval</button>
+  <button class="btn" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<div id="admin" class="page">
+  <h2>Admin Login</h2>
+  <p style="text-align:center;color:#8B0000;">Enter Admin Email & Password</p>
+  <input id="email" placeholder="Admin Email">
+  <input id="pass" type="password" placeholder="Enter Admin Password">
+  <button class="btn" onclick="login()">Login to Dashboard</button>
+  <button class="btn" onclick="showPage('home')">← Back Home</button>
+</div>
+
+<div id="admin-panel" class="page">
+  <h2>Admin Dashboard - FULL ACCESS</h2>
+  <div class="stats">
+    <div class="stat-box"><h3 id="total-contestants">0</h3><p>Contestants</p></div>
+    <div class="stat-box"><h3 id="total-votes">0</h3><p>Total Votes</p></div>
+    <div class="stat-box"><h3>₦<span id="total-earnings">0</span></h3><p>Total Earnings</p></div>
+  </div>
+  <div class="dashboard-box">
+    <h3>Manage Contestants</h3>
+    <table class="table" id="contestants-table">
+      <tr><th>Photo</th><th>Name</th><th>Email</th><th>Ref Code</th><th>Votes</th><th>Earnings</th><th>Edit</th></tr>
+    </table>
+  </div>
+  <div class="dashboard-box">
+    <h3>Votes Pending/Approved</h3>
+    <table class="table" id="votes-table">
+      <tr><th>Voter</th><th>Contestant</th><th>Amount</th><th>Votes</th><th>Status</th><th>Action</th></tr>
+    </table>
+  </div>
+  <button class="btn" onclick="showPage('home')">← Back Home</button>
+</div>
+</div>
+
+<div class="footer">
+  <p><b>GOSPEL MUSIC COVER GROUP SOC. LIMITED</b></p>
+  <p>Account: 1030560043 | UBA BANK | © 2026 GMCG</p>
+</div>
+
+<script>
+let contestants = JSON.parse(localStorage.getItem('gmcg_contestants')) || [];
+let votes = JSON.parse(localStorage.getItem('gmcg_votes')) || [];
+let currentContestant = null;
+let loggedInContestant = null;
+
+(function(){ emailjs.init("YOUR_PUBLIC_KEY"); })();
+
+function sendEmail(to, subject, body){
+  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    to_email: to, from_name: "GMCG 2026", subject: subject, message: body, reply_to: "YOUR_ADMIN_EMAIL"
+  });
+}
+
+function saveData(){
+  localStorage.setItem('gmcg_contestants', JSON.stringify(contestants));
+  localStorage.setItem('gmcg_votes', JSON.stringify(votes));
+  updateLiveCounter();
+}
+
+function acceptPolicy(){ if(document.getElementById('acceptPolicy').checked){ document.getElementById('policyPopup').style.display='none'; }else{ alert('You must accept the Privacy Policy to continue'); }}
+function showPage(pageId){ document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); document.getElementById(pageId).classList.add('active'); window.scrollTo(0,0); if(pageId=='home'){updateLiveCounter();} }
+
+function switchTab(tab){
+  if(tab=='signup'){ document.getElementById('signup-form').style.display='block'; document.getElementById('login-form').style.display='none'; document.getElementById('tab-signup').classList.add('active-tab'); document.getElementById('tab-login').classList.remove('active-tab'); }
+  else{ document.getElementById('signup-form').style.display='none'; document.getElementById('login-form').style.display='block'; document.getElementById('tab-login').classList.add('active-tab'); document.getElementById('tab-signup').classList.remove('active-tab'); }
+}
+
+function contestantSignup(){
+  let name = document.getElementById('cname').value;
+  let email = document.getElementById('cemail').value;
+  let pass = document.getElementById('cpass').value;
+  if(contestants.find(c => c.email == email)){ alert('This email already registered. Please Login'); return; }
+  let ref = 'GMCG' + Math.floor(Math.random()*90000 + 10000);
+  let newContestant = {name:name, email:email, pass:pass, phone:document.getElementById('cphone').value, category:document.getElementById('ccategory').value, bio:"Bio data will be updated by admin soon.", ref:ref, votes:0, earnings:0, photo:'', trend:'-'};
+  contestants.push(newContestant);
+  saveData();
+  loginContestant(newContestant);
+  alert('Account Created Successfully!');
+}
+
+function contestantLogin(){
+  let email = document.getElementById('clogin-email').value;
+  let pass = document.getElementById('clogin-pass').value;
+  let c = contestants.find(x => x.email == email && x.pass == pass);
+  if(c){ loginContestant(c); }
+  else{ alert('Invalid Email or Password'); }
+}
+
+function loginContestant(c){
+  loggedInContestant = c;
+  currentContestant = contestants.indexOf(c);
+  document.getElementById('dash-name').innerText = c.name;
+  document.getElementById('dash-email').innerText = c.email;
+  document.getElementById('dash-cat').innerText = c.category;
+  document.getElementById('dash-bio').innerText = c.bio;
+  document.getElementById('ref-code').innerText = c.ref;
+  document.getElementById('contestant-photo').innerHTML = c.photo? `<img src="${c.photo}">` : '?';
+  if(!document.querySelector(`#vote-contestant option[value="${c.ref}"]`)){
+    let opt = document.createElement('option');
+    opt.text = c.name + ' - ' + c.ref;
+    opt.value = c.ref;
+    document.getElementById('vote-contestant').add(opt);
+  }
+  updateTrend(c.ref);
+  updateMyVotesStatus();
+  showPage('contestant-dash');
+}
+
+function logoutContestant(){ loggedInContestant = null; currentContestant = null; showPage('home'); }
+function voterSubmit(){ document.getElementById('voter-name').innerText = document.getElementById('vname').value; showPage('vote'); }
+function showContestantInfo(){ let ref = document.getElementById('vote-contestant').value; let c = contestants.find(x => x.ref == ref); if(c){ document.getElementById('selected-contestant').style.display='block'; document.getElementById('vote-cname').innerText = c.name; document.getElementById('vote-ccat').innerText = c.category; document.getElementById('vote-cbio').innerText = c.bio; document.getElementById('vote-cref').innerText = c.ref; document.getElementById('vote-photo').innerHTML = c.photo? `<img src="${c.photo}">` : '?'; }}
+function copyRef(){ navigator.clipboard.writeText(document.getElementById('ref-code').innerText); alert('Reference code copied!'); }
+function copyVoteRef(){ navigator.clipboard.writeText(document.getElementById('vote-cref').innerText); alert('Reference code copied!'); }
+function checkProof(){ let file = document.getElementById('vote-proof').files[0]; document.getElementById('submit-vote-btn').disabled =!file; }
+
+function updateLiveCounter(){
+  let totalVotes = votes.reduce((a,b)=>a+b.votes,0);
+  document.getElementById('live-votes').innerText = totalVotes.toLocaleString();
+}
+
+function updateTrend(contestantRef){
+  let cIndex = contestants.findIndex(x => x.ref == contestantRef);
+  if(cIndex === -1) return;
+  let thisVotes = contestants[cIndex].votes;
+  let otherVotes = contestants.filter((c,i) => i!== cIndex).reduce((a,b)=>a+b.votes,0);
+  let trend = '-';
+  if(thisVotes > 0){
+    trend = thisVotes >= otherVotes? 'up' : 'down';
+  }
+  contestants[cIndex].trend = trend;
+  if(currentContestant === cIndex && document.getElementById('trend-arrow')){
+    document.getElementById('trend-arrow').className = 'trend ' + trend;
+    document.getElementById('trend-arrow').innerText = trend == 'up'? '↑' : trend == 'down'? '↓' : '-';
+  }
+}
+
+function submitVote(){
+  let voter = document.getElementById('voter-name').innerText;
+  let ref = document.getElementById('vote-contestant').value;
+  let amount = parseInt(document.getElementById('vote-amount').value);
+  let payref = document.getElementById('vote-payref').value;
+  let voteCount = Math.floor(amount / 100);
+  votes.push({voter:voter, ref:ref, amount:amount, votes:voteCount, payref:payref, status:'Pending'});
+  let c = contestants.find(x => x.ref == ref);
+  if(c){ c.votes += voteCount; c.earnings += amount; }
+  saveData();
+  sendEmail("YOUR_ADMIN_EMAIL", 'New Vote Submitted', `${voter} voted for ${ref} - Amount: ₦${amount} - Votes: ${voteCount}`);
+  updateMyVotesStatus();
+  updateTrend(ref); // ARROW ONLY CHANGES WHEN VOTE COMES
+  updateAdmin();
+  alert(`Vote Submitted For Approval! ${voteCount} votes. Waiting for Admin approval.`);
+}
+
+function updateMyVotesStatus(){ if(!loggedInContestant) return; let myVotes = votes.filter(v => v.voter == loggedInContestant.name); let html = '<h3>My Vote Status</h3>'; if(myVotes.length == 0){ html += '<p>No votes yet</p>'; } else{ myVotes.forEach(v => { let badge = v.status == 'Approved'? 'status-approved' : 'status-pending'; html += `<p>${v.ref}: ₦${v.amount} - <span class="status-badge ${badge}">${v.status}</span></p>`; }); } document.getElementById('my-votes-status').innerHTML = html; }
+
+function updateAdmin(){ document.getElementById('total-contestants').innerText = contestants.length; document.getElementById('total-votes').innerText = votes.reduce((a,b)=>a+b.votes,0); document.getElementById('total-earnings').innerText = votes.reduce((a,b)=>a+b.amount,0); let cTable = document.getElementById('contestants-table'); cTable.innerHTML = '<tr><th>Photo</th><th>Name</th><th>Email</th><th>Ref Code</th><th>Votes</th><th>Earnings</th><th>Edit</th></tr>'; contestants.forEach((c,i) => { cTable.innerHTML += `<tr><td><div class="profile-pic" style="width:50px;height:50px;">${c.photo? `<img src="${c.photo}">` : '?'}</div><input type="file" onchange="uploadPhoto(${i}, this)"></td><td>${c.name}</td><td>${c.email}</td><td>${c.ref}</td><td>${c.votes}</td><td>₦${c.earnings}</td><td><button class="btn small" onclick="editBio(${i})">Edit Bio</button></td></tr>`; }); let vTable = document.getElementById('votes-table'); vTable.innerHTML = '<tr><th>Voter</th><th>Contestant</th><th>Amount</th><th>Votes</th><th>Status</th><th>Action</th></tr>'; votes.forEach((v,i) => { let badge = v.status == 'Approved'? 'status-approved' : 'status-pending'; vTable.innerHTML += `<tr><td>${v.voter}</td><td>${v.ref}</td><td>₦${v.amount}</td><td>${v.votes}</td><td><span class="status-badge ${badge}">${v.status}</span></td><td>${v.status=='Pending'? `<button class="btn small" onclick="approveVote(${i})">Approve</button>` : 'Approved'}</td></tr>`; }); }
+
+function uploadPhoto(index, input){ let file = input.files[0]; let reader = new FileReader(); reader.onload = function(e){ contestants[index].photo = e.target.result; saveData(); updateAdmin(); if(currentContestant == index){ document.getElementById('contestant-photo').innerHTML = `<img src="${e.target.result}">`; } } reader.readAsDataURL(file); }
+
+function editBio(index){ let newBio = prompt("Enter correct bio data for " + contestants[index].name, contestants[index].bio); if(newBio){ contestants[index].bio = newBio; saveData(); if(currentContestant == index){ document.getElementById('dash-bio').innerText = newBio; } updateAdmin(); }}
+
+function approveVote(index){ votes[index].status = 'Approved'; saveData(); sendEmail("YOUR_ADMIN_EMAIL", 'Vote Approved', `Vote of ₦${votes[index].amount} for ${votes[index].
